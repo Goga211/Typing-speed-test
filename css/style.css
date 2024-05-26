@@ -1,50 +1,82 @@
-body, h1, h2, h3, p, div, span, a, button, nav, header, footer {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+    --background: #212529;
+    --background-secondary: #282c31;
+    --background-third: #6e767f;
+    --text: #ced4da;
+    --text-secondary: #9a9c9e;
+    --warning: #dc2f02;
+}
+
+:root.native-dark {
+    --background: #22272e;
+    --background-secondary: #272e35;
+    --background-third: #6d7887;
+    --text: #cbd0df;
+    --text-secondary: #4895ef;
+    --warning: #ef6c75;
+}
+
+@font-face {
+    font-family: "Bahnschrift";
+    src: url("../font/Bahnschrift.ttf");
 }
 
 body {
-    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Bahnschrift", sans-serif;
     line-height: 1.6;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: var(--background);
+    color: var(--text);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
+
+h1, h2, h3, p {
+    margin: 0;
+}
+
 header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
+    background-color: var(--background-secondary);
+    padding: 20px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-header div {
-    font-size: 20px;
-}
-
-header span {
+h1.logo {
     font-size: 24px;
-    font-weight: bold;
 }
 
 header nav {
     display: flex;
+    align-items: center;
     gap: 15px;
 }
 
-header nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
+header nav button {
+    background: var(--background);
 }
 
-header nav a:hover {
-    text-decoration: underline;
+a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 18px;
+    transition: all 200ms ease-in-out;
+}
+
+a:hover,
+a.active {
+    color: var(--text-secondary);
+}
+
+footer {
+    background-color: var(--background-secondary);
+    padding: 20px;
+    text-align: center;
 }
 
 .main {
@@ -55,20 +87,28 @@ header nav a:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 8px;
 }
 
 button {
+    font-family: "Bahnschrift", sans-serif;
     padding: 10px 20px;
     margin: 10px;
     font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
+    background-color: var(--background-secondary);
+    color: var(--background-third);
+    border-radius: 6px;
     border: none;
     cursor: pointer;
+    transition: all 200ms ease-in-out;
 }
 
 button:hover {
-    background-color: #45a049;
+    color: var(--text);
+}
+
+button.selected {
+    color: var(--text);
 }
 
 div.Java, div.C, div.Python {
@@ -82,75 +122,32 @@ div.Java button, div.C button, div.Python button {
     margin: 5px 0;
 }
 
-footer {
-    background-color: #333;
-    color: white;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-footer div {
-    font-size: 20px;
-}
-
-footer span {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-footer nav {
-    display: flex;
-    gap: 15px;
-}
-
-footer nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-footer nav a:hover {
-    text-decoration: underline;
-}
-
-footer p {
-    margin-top: 10px;
-}
-
-button.Java-btn, button.C-btn, button.Python-btn {
-    background-color: #2196F3;
-}
-
-button.Java-btn:hover, button.C-btn:hover, button.Python-btn:hover {
-    background-color: #1976D2;
-}
 table {
     width: 80%;
-    margin: 0 auto;
+    margin: 15px auto;
     border-collapse: collapse;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 table thead tr {
-    background-color: #4CAF50;
-    color: white;
+    background-color: var(--background-secondary);
     text-align: left;
     font-weight: bold;
 }
 
+table tbody tr {
+    transition: all 200ms ease-in-out;
+}
+
 table th, table td {
     padding: 12px 15px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--background-third);
 }
 
 table tbody tr:nth-child(even) {
-    background-color: #f3f3f3;
+    background-color: var(--background);
 }
 
 table tbody tr:hover {
-    background-color: #f1f1f1;
+    background-color: var(--background-secondary);
     cursor: pointer;
 }

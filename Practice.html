@@ -1,26 +1,29 @@
 <!doctype html>
 <html lang="ru">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="js/main.js" defer></script>
-        <link rel="stylesheet" href="css/style.css">
-        <title>Practice</title>
-    </head>
-    <body>
-        <header>
-            <div class="logo">Тут должен быть логотип</div>
-            <span>Speed typing test</span>
-            <nav>
-                <a href="test.html">Test</a>
-                <a href="Practice.html">Practice</a>
-                <a href="Rating.html">Rating</a>
-            </nav>
-        </header>
-
-        <button class="Java-btn">Java</button>
-        <button class="C-btn">C++</button>
-        <button class="Python-btn">Python</button>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Practice</title>
+</head>
+<body>
+    <header>
+        <a href="index.html"><h1 class="logo">Speed typing</h1></a>
+        <nav>
+            <a href="test.html">Test</a>
+            <a class="active" href="Practice.html">Practice</a>
+            <a href="Rating.html">Rating</a>
+            <button id="change-theme">Сменить тему</button>
+        </nav>
+    </header>
+    <div class="main">
+        <div class="language">
+            <button class="Java-btn">Java</button>
+            <button class="C-btn">C++</button>
+            <button class="Python-btn">Python</button>
+        </div>
 
         <div class="Java">
             <button>Практика 1</button>
@@ -45,16 +48,9 @@
             <button>Практика 4</button>
             <button>Практика 5</button>
         </div>
-
-        <footer>
-            <div class="logo">Тут должен быть логотип</div>
-            <span>Speed typing</span>
-            <nav>
-                <a href="test.html">Test</a>
-                <a href="Practice.html">Practice</a>
-                <a href="Rating.html">Rating</a>
-            </nav>
-            <p>&copy; By Goga</p>
-        </footer>
-    </body>
+    </div>
+    <footer>
+        <p>&copy; By Goga</p>
+    </footer>
+</body>
 </html>
