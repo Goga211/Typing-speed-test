@@ -1,0 +1,26 @@
+{
+  "code": {
+    "Java": [
+      {
+        "name": "Практика 1",
+        "program": ""
+      }
+    ],
+    "C++": [
+      {
+        "name": "Практика 1",
+        "program": "void bubbleSort(int arr[], int n){\n    for(int i = 0; i < n - 1; i++)\n        for(int j = 0; j < n - 1; j++)\n            if(arr[j] > arr[j + 1])\n                swap(arr[j], arr[j + 1]);\n}"
+      },
+      {
+        "name": "Практика 2",
+        "program": "int _Search (int arr[], int key){\n    int l = 0, r = arr.size() + 1;\n    while(r - l > 1){\n        int mid = (l + r) / 2;\n        if(arr[mid] > key) r = mid - 1;\n        else if(arr[mid] < key) l = mid + 1;\n        else break;\n    }\n}"
+      }
+    ],
+    "Python": [
+      {
+        "name": "Практика",
+        "program": ""
+      }
+    ]
+  }
+}

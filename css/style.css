@@ -151,3 +151,105 @@ table tbody tr:hover {
     background-color: var(--background-secondary);
     cursor: pointer;
 }
+
+.practice {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+}
+
+.practice .language {
+    margin-bottom: 20px;
+}
+
+.practice .language button {
+    font-weight: 800;
+    font-size: 20px;
+}
+
+.practice .practice-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.practice .practice-test {
+    padding: 20px;
+    width: 50vw;
+    background-color: var(--background-secondary);
+    border-radius: 6px;
+    text-align: start;
+    display: none;
+}
+
+.practice .practice-test h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.practice .practice-test #code-container {
+    background-color: var(--background);
+    border-radius: 6px;
+    padding: 20px;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.practice .practice-test #code-container pre {
+    margin: 0;
+    color: var(--text);
+}
+
+.practice .practice-test #code-container pre span {
+    opacity: 0.3;
+}
+
+.practice .practice-test #code-container pre .current {
+    font-weight: 900;
+    background-color: var(--background-secondary);
+    border-radius: 6px;
+    padding: 3px;
+    margin: 0 2px;
+    opacity: 1;
+    animation: cursor 1.5s linear infinite;
+}
+
+@keyframes cursor {
+    0% {
+        color: var(--text-secondary);
+    }
+    50% {
+        color: var(--text);
+        text-decoration: underline;
+    }
+    100% {
+        color: var(--text-secondary);
+    }
+}
+
+.practice .practice-test #code-container pre .correct {
+    color: var(--text);
+    opacity: 1;
+}
+
+.practice .practice-test #code-container pre .incorrect {
+    color: var(--warning) !important;
+    opacity: 1;
+}
+
+.practice .practice-test #stats,
+.practice .practice-test #results {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.practice .practice-test .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.practice .practice-test .buttons button {
+    background-color: var(--background);
+}
