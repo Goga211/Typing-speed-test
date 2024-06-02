@@ -103,6 +103,19 @@ button {
     transition: all 200ms ease-in-out;
 }
 
+input {
+    font-family: "Bahnschrift", sans-serif;
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    background-color: var(--background-secondary);
+    color: var(--background-third);
+    border-radius: 6px;
+    border: none;
+    transition: all 200ms ease-in-out;
+    outline: 0;
+}
+
 button:hover {
     color: var(--text);
 }
@@ -154,9 +167,9 @@ table tbody tr:hover {
 
 .practice {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 90vw;
 }
 
 .practice .language {
@@ -171,6 +184,15 @@ table tbody tr:hover {
 .practice .practice-block {
     display: flex;
     flex-direction: column;
+}
+
+.practice .practice-block button.complete {
+    color: green;
+    background-color: rgba(0, 128, 0, 0.2);
+}
+
+.practice .practice-block button.complete:hover {
+    color: var(--text);
 }
 
 .practice .practice-test {
