@@ -52,13 +52,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const resultsContainer = document.createElement('div');
         resultsContainer.id = 'results';
         resultsContainer.style.display = 'none';
-        const score = document.createElement('p');
-        score.innerHTML = 'Score: <span id="score"></span>';
+        const Penalty = document.createElement('p');
+        Penalty.innerHTML = 'Penalty: <span id="Penalty"></span>';
         const finalTimeText = document.createElement('p');
         finalTimeText.innerHTML = 'Final Time: <span id="final-time"></span> seconds';
         const accuracyText = document.createElement('p');
         accuracyText.innerHTML = 'Accuracy: <span id="accuracy"></span>%';
-        resultsContainer.appendChild(score);
+        resultsContainer.appendChild(Penalty);
         resultsContainer.appendChild(finalTimeText);
         resultsContainer.appendChild(accuracyText);
 

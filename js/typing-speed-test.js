@@ -13,7 +13,7 @@ class TypingSpeedTest {
         this.codeText = document.getElementById('code-text');
         this.timerDisplay = document.getElementById('timer');
         this.errorCount = document.getElementById('error-count');
-        this.scoreDisplay = document.getElementById('score');
+        this.PenaltyDisplay = document.getElementById('Penalty');
         this.finalTimeDisplay = document.getElementById('final-time');
         this.accuracyDisplay = document.getElementById('accuracy');
         this.results = document.getElementById('results');
@@ -66,8 +66,8 @@ class TypingSpeedTest {
         this.finalTimeDisplay.textContent = elapsedTime.toString();
         const accuracy = ((this.totalKeystrokes - this.errors) / this.totalKeystrokes) * 100;
         this.accuracyDisplay.textContent = accuracy.toFixed(2);
-        const score = (((100 - accuracy) / 100) * this.codeSample.length * elapsedTime + elapsedTime).toFixed(0);
-        this.scoreDisplay.textContent = score;
+        const Penalty = (((100 - accuracy) / 100) * this.codeSample.length * elapsedTime + elapsedTime).toFixed(0);
+        this.PenaltyDisplay.textContent = Penalty;
         this.results.style.display = 'flex';
         document.removeEventListener('keydown', this.handleKeydown.bind(this));
         this.currentIndex = 0;
@@ -94,21 +94,21 @@ class TypingSpeedTest {
 
             const userResultIndex = results.findIndex(result => result.username === username);
             if (userResultIndex !== -1) {
-                if (results[userResultIndex].score > score) {
-                    results[userResultIndex].score = score;
+                if (results[userResultIndex].Penalty > Penalty) {
+                    results[userResultIndex].Penalty = Penalty;
                     results[userResultIndex].time = elapsedTime;
                     results[userResultIndex].accuracy = accuracy;
                 }
             } else {
                 results.push({
                     username: username,
-                    score: score,
+                    Penalty: Penalty,
                     time: elapsedTime,
                     accuracy: accuracy
                 });
             }
 
-            results.sort((a, b) => b.score - a.score);
+            results.sort((a, b) => b.Penalty - a.Penalty);
             localStorage.setItem(testKey, JSON.stringify(results));
 
         }

@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 results.forEach(result => {
                     allResults.push({
                         username: result.username,
-                        score: result.score,
+                        Penalty: result.Penalty,
                         time: result.time,
                         accuracy: result.accuracy,
                         language: language
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    allResults.sort((a, b) => a.score - b.score);
+    allResults.sort((a, b) => a.Penalty - b.Penalty);
 
     allResults.forEach((result, index) => {
         const row = document.createElement('tr');
@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
         nameCell.textContent = result.username;
         const languageCell = document.createElement('td');
         languageCell.textContent = result.language;
-        const scoreCell = document.createElement('td');
-        scoreCell.textContent = result.score;
+        const PenaltyCell = document.createElement('td');
+        PenaltyCell.textContent = result.Penalty;
         const timeCell = document.createElement('td');
         timeCell.textContent = result.time;
         const accuracyCell = document.createElement('td');
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         row.appendChild(placeCell);
         row.appendChild(nameCell);
         row.appendChild(languageCell);
-        row.appendChild(scoreCell);
+        row.appendChild(PenaltyCell);
         row.appendChild(timeCell);
         row.appendChild(accuracyCell);
         tableBody.appendChild(row);
