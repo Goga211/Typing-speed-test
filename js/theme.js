@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    if (localStorage.getItem('theme') == null)
+    if (localStorage.getItem('theme') == null || (localStorage.getItem('theme') !== 'blackAndWhite' && localStorage.getItem('theme') !== 'nativeDark'))
         localStorage.setItem('theme', 'blackAndWhite')
 
     let theme = localStorage.getItem("theme");

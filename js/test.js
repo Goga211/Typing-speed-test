@@ -1,5 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const selectionContainer = document.querySelector('.practice-selection');
+    const usernameInput = document.getElementById('username');
+    const saveButton = document.getElementById('save-username');
+
+    const savedUsername = localStorage.getItem('username');
+    if (savedUsername)
+        usernameInput.value = savedUsername;
+
+    saveButton.addEventListener('click', function() {
+        const username = usernameInput.value.trim();
+        localStorage.setItem('username', username ?? 'User');
+        saveButton.textContent = 'Save username (Saved)';
+        setTimeout(() => {
+            saveButton.textContent = 'Save username';
+        }, 1000)
+    });
+
+    const selectionContainer = document.querySelector('.test-selection');
     const testContainer = document.querySelector('.practice-test');
     const languageContainer = document.createElement('div');
     languageContainer.classList.add('language');
@@ -9,59 +25,11 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             const languages = Object.keys(data.code);
-
-            languages.forEach(language => {
-                const button = document.createElement('button');
-                button.textContent = language;
-                button.classList.add(`${language.toLowerCase()}-btn`);
-                languageContainer.appendChild(button);
-
-                const practiceContainer = document.createElement('div');
-                practiceContainer.id = language.toLowerCase();
-                practiceContainer.classList.add('practice-block');
-                practiceContainer.style.display = 'none';
-                selectionContainer.appendChild(practiceContainer);
-                showPracticeButtons(language, data);
-
-                button.addEventListener('click', function () {
-                    document.querySelectorAll('.language button').forEach(el => {
-                        el.classList.remove('selected');
-                    });
-                    this.classList.add('selected');
-                    document.querySelectorAll('.practice-block').forEach(el => {
-                        el.style.display = 'none';
-                    });
-                    practiceContainer.style.display = 'flex';
-                });
-            });
+            setupTestLanguageSelection(languages, data);
         })
         .catch(error => console.error('Error fetching data:', error));
 
-    function showPracticeButtons(language, data) {
-        const practiceData = data.code[language];
-        const practiceContainer = document.getElementById(language.toLowerCase());
-        practiceContainer.innerHTML = '';
-        practiceData.forEach(practice => {
-            const button = document.createElement('button');
-            button.textContent = practice.name;
-            if (localStorage.getItem(`${language}-practice-${practice.id}`)) {
-                const result = localStorage.getItem(`${language}-practice-${practice.id}`);
-                if (parseFloat(result) >= 95)
-                    button.classList.add('complete');
-            }
-            button.addEventListener('click', function () {
-                document.querySelectorAll('.practice-block button').forEach(el => {
-                    el.classList.remove('selected');
-                });
-                this.classList.add('selected');
-                const program = practice.program;
-                createTestBlock(language, practice.name, practice.id, program);
-            });
-            practiceContainer.appendChild(button);
-        });
-    }
-
-    function createTestBlock(language, practiceName, practiceId, program) {
+    function createTestBlock(language, practiceName, program) {
         const header = document.createElement('h2');
         header.textContent = practiceName;
 
@@ -84,10 +52,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const resultsContainer = document.createElement('div');
         resultsContainer.id = 'results';
         resultsContainer.style.display = 'none';
+        const score = document.createElement('p');
+        score.innerHTML = 'Score: <span id="score"></span>';
         const finalTimeText = document.createElement('p');
         finalTimeText.innerHTML = 'Final Time: <span id="final-time"></span> seconds';
         const accuracyText = document.createElement('p');
         accuracyText.innerHTML = 'Accuracy: <span id="accuracy"></span>%';
+        resultsContainer.appendChild(score);
         resultsContainer.appendChild(finalTimeText);
         resultsContainer.appendChild(accuracyText);
 
@@ -107,16 +78,37 @@ document.addEventListener('DOMContentLoaded', function() {
         testContainer.appendChild(buttons);
         showElement(testContainer);
         hideElement(selectionContainer);
+        hideElement(usernameInput);
+        hideElement(saveButton);
 
-        let test = new TypingSpeedTest(program, language, practiceId);
+        let test = new TypingSpeedTest(program, language);
 
         menuBtn.addEventListener('click', function () {
             test.stopGame();
             hideElement(testContainer);
             testContainer.innerHTML = '';
             showElement(selectionContainer);
-            document.querySelectorAll('.practice-block button').forEach(el => {
-                el.classList.remove('selected');
+            usernameInput.style.display = 'inline-block';
+            saveButton.style.display = 'inline-block';
+        });
+    }
+
+    function setupTestLanguageSelection(languages, data) {
+        const testSelectionContainer = document.querySelector('.test-selection');
+        const languageContainer = document.createElement('div');
+        languageContainer.classList.add('language');
+        testSelectionContainer.appendChild(languageContainer);
+
+        languages.forEach(language => {
+            const button = document.createElement('button');
+            button.textContent = language;
+            button.classList.add(`${language.toLowerCase()}-btn`);
+            languageContainer.appendChild(button);
+
+            button.addEventListener('click', function () {
+                const practices = data.code[language];
+                const randomPractice = practices[Math.floor(Math.random() * practices.length)];
+                createTestBlock(language, randomPractice.name, randomPractice.program);
             });
         });
     }

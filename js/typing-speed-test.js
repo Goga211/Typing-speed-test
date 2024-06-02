@@ -1,5 +1,5 @@
 class TypingSpeedTest {
-    constructor(codeSample) {
+    constructor(codeSample, language, practiceId = 0) {
         this.codeSample = codeSample;
         this.timerInterval = null;
         this.startTime = null;
@@ -7,16 +7,17 @@ class TypingSpeedTest {
         this.currentIndex = 0;
         this.totalKeystrokes = 0;
         this.isStarted = false;
+        this.language = language;
+        this.practiceId = practiceId;
 
         this.codeText = document.getElementById('code-text');
         this.timerDisplay = document.getElementById('timer');
         this.errorCount = document.getElementById('error-count');
-        this.restartBtn = document.getElementById('restart-btn');
+        this.scoreDisplay = document.getElementById('score');
         this.finalTimeDisplay = document.getElementById('final-time');
         this.accuracyDisplay = document.getElementById('accuracy');
         this.results = document.getElementById('results');
 
-        this.restartBtn.addEventListener('click', () => this.startGame());
         this.startGame();
     }
 
@@ -65,8 +66,52 @@ class TypingSpeedTest {
         this.finalTimeDisplay.textContent = elapsedTime.toString();
         const accuracy = ((this.totalKeystrokes - this.errors) / this.totalKeystrokes) * 100;
         this.accuracyDisplay.textContent = accuracy.toFixed(2);
+        const score = (((100 - accuracy) / 100) * this.codeSample.length * elapsedTime + elapsedTime).toFixed(0);
+        this.scoreDisplay.textContent = score;
         this.results.style.display = 'flex';
         document.removeEventListener('keydown', this.handleKeydown.bind(this));
+        this.currentIndex = 0;
+
+        console.log('!')
+
+        if (this.practiceId !== 0) {
+            localStorage.setItem(`${this.language}-practice-${this.practiceId}`, String(accuracy));
+        } else {
+            const username = localStorage.getItem('username') ?? 'User';
+            const testKey = `${this.language}-test`;
+
+            let results;
+
+            try {
+                results = JSON.parse(localStorage.getItem(testKey)) || [];
+            } catch (e) {
+                results = [];
+            }
+
+            if (!Array.isArray(results)) {
+                results = [];
+            }
+
+            const userResultIndex = results.findIndex(result => result.username === username);
+            if (userResultIndex !== -1) {
+                if (results[userResultIndex].score > score) {
+                    results[userResultIndex].score = score;
+                    results[userResultIndex].time = elapsedTime;
+                    results[userResultIndex].accuracy = accuracy;
+                }
+            } else {
+                results.push({
+                    username: username,
+                    score: score,
+                    time: elapsedTime,
+                    accuracy: accuracy
+                });
+            }
+
+            results.sort((a, b) => b.score - a.score);
+            localStorage.setItem(testKey, JSON.stringify(results));
+
+        }
     }
 
     stopGame() {
@@ -112,15 +157,18 @@ class TypingSpeedTest {
                 }
             }
         } else {
-            codeChars[this.currentIndex].classList.add('incorrect');
-            codeChars[this.currentIndex].classList.remove('correct');
-            this.errors++;
-            this.errorCount.textContent = this.errors;
+            if (codeChars[this.currentIndex]) {
+                codeChars[this.currentIndex].classList.add('incorrect');
+                codeChars[this.currentIndex].classList.remove('correct');
+                this.errors++;
+                this.errorCount.textContent = this.errors;
+            }
         }
 
         this.totalKeystrokes++;
 
         if (this.currentIndex === this.codeSample.length) {
+            console.log('end')
             this.endGame();
         } else {
             this.updateCurrentChar();
