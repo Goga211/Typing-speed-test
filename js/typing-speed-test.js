@@ -67,7 +67,8 @@ class TypingSpeedTest {
         const accuracy = ((this.totalKeystrokes - this.errors) / this.totalKeystrokes) * 100;
         this.accuracyDisplay.textContent = accuracy.toFixed(2);
         const Penalty = (((100 - accuracy) / 100) * this.codeSample.length * elapsedTime + elapsedTime).toFixed(0);
-        this.PenaltyDisplay.textContent = Penalty;
+        if (this.PenaltyDisplay)
+            this.PenaltyDisplay.textContent = Penalty;
         this.results.style.display = 'flex';
         document.removeEventListener('keydown', this.handleKeydown.bind(this));
         this.currentIndex = 0;
